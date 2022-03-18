@@ -1,24 +1,31 @@
 import logo from './logo.svg';
 import './App.css';
+import * as React from 'react';
+import ReactDOM from 'react-dom';
+import Button from '@mui/material/Button';
+
+import CreateTodo from './components/CreateTodo';
+import TodoFilter from './components/TodoFilter';
+import TodoList from './components/TodoList';
+import Header from './components/Header';
+import GlobalStyles from './style/GlobalStyles';
+import styled from 'styled-components';
+
+const Main = styled.main`
+  width: clamp(300px, 50vw, 1000px);
+  margin-top: 50px;
+`;
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Main>
+      <GlobalStyles />
+      <Header />
+      <CreateTodo />
+      <TodoList />
+      <TodoFilter />
+      <p>Drag and drop to reorder list</p>
+    </Main>
   );
 }
 
