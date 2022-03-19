@@ -21,7 +21,7 @@ function TodoList({}) {
     <List>
       {todoCtx.todosList.length > 0 &&
         todoCtx.todosList.map((todo, index) => (
-          <Todo key={index} text={todo.text} id={todo.id} />
+          <Todo key={index} text={todo.text} id={todo.id} completed={todo.completed}/>
         ))}
     </List>
   );

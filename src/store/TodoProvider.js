@@ -19,6 +19,18 @@ const todoReducer = (state, action) => {
       );
       return updatedTodoList;
     }
+
+    case 'TOGGLE': {
+      console.log('toggle');
+      const updatedTodos = state.map((todo) => {
+        if (todo.id === action.payload.id) {
+          todo.completed = !action.payload.completed;
+          return todo;
+        }
+        return todo;
+      });
+      return updatedTodos;
+    }
   }
 };
 
@@ -33,10 +45,15 @@ const TodoProvider = (props) => {
     dispatch({ type: 'DELETE', payload: { id } });
   };
 
+  const toggleTodo = (id, completed) => {
+    dispatch({ type: 'TOGGLE', payload: { id, completed } });
+  };
+
   const todoContext = {
     todosList: state,
     addTodo,
     deleteTodo,
+    toggleTodo,
   };
 
   return (

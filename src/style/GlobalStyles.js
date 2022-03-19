@@ -1,4 +1,3 @@
-import { getThemeProps } from '@mui/system';
 import { createGlobalStyle } from 'styled-components';
 import mobileLightBg from '../assets/bg-mobile-light.jpg';
 
