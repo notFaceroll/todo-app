@@ -10,6 +10,7 @@ import TodoList from './components/TodoList';
 import Header from './components/Header';
 import GlobalStyles from './style/GlobalStyles';
 import styled from 'styled-components';
+import TodoProvider from './store/TodoProvider';
 
 const Main = styled.main`
   width: clamp(300px, 50vw, 1000px);
@@ -18,14 +19,16 @@ const Main = styled.main`
 
 function App() {
   return (
-    <Main>
-      <GlobalStyles />
-      <Header />
-      <CreateTodo />
-      <TodoList />
-      <TodoFilter />
-      <p>Drag and drop to reorder list</p>
-    </Main>
+    <TodoProvider>
+      <Main>
+        <GlobalStyles />
+        <Header />
+        <CreateTodo />
+        <TodoList />
+        <TodoFilter />
+        <p>Drag and drop to reorder list</p>
+      </Main>
+    </TodoProvider>
   );
 }
 

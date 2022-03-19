@@ -1,6 +1,6 @@
-import { style } from '@mui/system';
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
+import TodoContext from '../store/todo-context';
 import Todo from './Todo';
 
 const List = styled.ul`
@@ -9,18 +9,20 @@ const List = styled.ul`
   background-color: #fff;
   border-radius: 5px;
   li + li {
-      border-top: 1px solid grey;
+    border-top: 1px solid grey;
   }
 `;
 
 function TodoList({}) {
+  const todoCtx = useContext(TodoContext);
+  console.log(todoCtx);
+
   return (
     <List>
-      <Todo text='mopa' />
-      <Todo text='mopa' />
-      <Todo text='mopa' />
-      <Todo text='mopa' />
-      <Todo text='mopa' />
+      {todoCtx.todosList.length > 0 &&
+        todoCtx.todosList.map((todo, index) => (
+          <Todo key={index} text={todo.text} id={todo.id} />
+        ))}
     </List>
   );
 }

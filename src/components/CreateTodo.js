@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
+import TodoContext from '../store/todo-context';
 
 const UserInput = styled.input`
   width: 100%;
@@ -10,8 +11,44 @@ const UserInput = styled.input`
   box-sizing: border-box;
   outline: 0;
 `;
+
+const Form = styled.form`
+  position: relative;
+`;
+
+const HiddenInput = styled.input`
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+`;
+
 function CreateTodo({}) {
-  return <UserInput type="text" placeholder="Create a new todo..." />;
+  const [text, setText] = useState('');
+
+  const todoCtx = useContext(TodoContext);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    todoCtx.addTodo(text);
+    setText('');
+  };
+
+  const textInputHandler = (event) => {
+    setText(event.target.value);
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      <UserInput
+        type="text"
+        placeholder="Create a new todo..."
+        onChange={textInputHandler}
+        value={text}
+      />
+      <HiddenInput type="submit" tabIndex="-1" />
+    </Form>
+  );
 }
 
 export default CreateTodo;
