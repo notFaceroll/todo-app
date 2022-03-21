@@ -10,6 +10,7 @@ const todoReducer = (state, action) => {
         id: Math.random().toString(36).substring(2, 9),
         text: action.payload.text,
         completed: false,
+        isVisible: true,
       };
       return [...state, newTodo];
     }
@@ -36,10 +37,48 @@ const todoReducer = (state, action) => {
       if (!action.payload.result.destination) return;
 
       const list = state;
-      const [reorderedList] = list.splice(action.payload.result.source.index, 1);
+      const [reorderedList] = list.splice(
+        action.payload.result.source.index,
+        1
+      );
       list.splice(action.payload.result.destination.index, 0, reorderedList);
       console.log(list);
       return list;
+    }
+
+    case 'CLEAR': {
+      const updatedList = state.filter((todo) => todo.completed === false);
+      return updatedList;
+    }
+
+    case 'VISIBILITY': {
+      if (action.payload.status === 'completed') {
+        const visibleTodos = state.map((todo) => {
+          if (!todo.completed) {
+            todo.isVisible = false;
+            return todo;
+          }
+          todo.isVisible = true;
+          return todo;
+        });
+        return visibleTodos;
+      } else if (action.payload.status === 'active') {
+        const visibleTodos = state.map((todo) => {
+          if (todo.completed) {
+            todo.isVisible = false;
+            return todo;
+          }
+          todo.isVisible = true;
+          return todo;
+        });
+        return visibleTodos;
+      } else if (action.payload.status === 'all') {
+        const visibleTodos = state.map((todo) => {
+          todo.isVisible = true;
+          return todo;
+        });
+        return visibleTodos;
+      }
     }
   }
 };
@@ -63,12 +102,22 @@ const TodoProvider = (props) => {
     dispatch({ type: 'REORDER', payload: { result } });
   };
 
+  const setVisibility = (status) => {
+    dispatch({ type: 'VISIBILITY', payload: { status } });
+  };
+
+  const clearList = () => {
+    dispatch({ type: 'CLEAR' });
+  };
+
   const todoContext = {
     todosList: state,
     addTodo,
     deleteTodo,
     toggleTodo,
     reorderList,
+    setVisibility,
+    clearList,
   };
 
   return (

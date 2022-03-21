@@ -10,6 +10,7 @@ const UserInput = styled.input`
   margin: 1rem auto;
   box-sizing: border-box;
   outline: 0;
+  font-family: inherit;
 `;
 
 const Form = styled.form`
@@ -45,6 +46,8 @@ function CreateTodo({}) {
         placeholder="Create a new todo..."
         onChange={textInputHandler}
         value={text}
+        maxLength="24"
+        
       />
       <HiddenInput type="submit" tabIndex="-1" />
     </Form>

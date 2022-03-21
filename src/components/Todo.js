@@ -15,7 +15,7 @@ const TodoItem = styled.li`
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
-  display: flex;
+  display: ${(props) => (props.isVisible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
 
@@ -23,19 +23,17 @@ const TodoItem = styled.li`
     max-width: 100%;
     display: block;
   }
+`;
 
-  p {
-    margin: 0 auto 0 0;
-  }
-
-  button {
-    /* border: 0; */
-    /* background-color: transparent; */
-  }
+const Text = styled.p`
+  margin: 0 auto 0 0;
+  text-decoration: ${(props) => (props.isCompleted ? 'line-through' : 'none')};
+  color: ${(props) =>
+    props.isCompleted ? 'hsl(233, 11%, 84%)' : 'hsl(235, 19%, 35%)'};
 `;
 
 const Button = styled.button`
-  background-color: transparent;
+  background-color: ${(props) => (props.completed ? 'blue' : 'transparent')};
   border: 1px solid grey;
   color: blue;
   border-radius: 50%;
@@ -44,6 +42,13 @@ const Button = styled.button`
   margin-right: 1em;
   display: flex;
   align-items: center;
+  cursor: pointer;
+`;
+
+const CloseButton = styled(Button)`
+  background-color: transparent;
+  border: 0;
+  margin: 0;
 `;
 
 export default function Todo(props) {
@@ -57,6 +62,8 @@ export default function Todo(props) {
     todoCtx.toggleTodo(props.id, props.completed);
   };
 
+  console.log(props.isVisible);
+
   return (
     <Draggable draggableId={props.id} index={props.index} key={props.id}>
       {(provided) => (
@@ -64,19 +71,20 @@ export default function Todo(props) {
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
+          isVisible={props.isVisible}
         >
-          <Button onClick={toggleTodo}>
-            {props.completed ? (
+          <Button onClick={toggleTodo} completed={props.completed}>
+            {/* {props.completed ? (
               <img src={iconChecked} alt="" />
             ) : (
               <img src={iconOutline} alt="" />
-            )}
+            )} */}
           </Button>
 
-          <p>{props.text}</p>
-          <button type="button" onClick={deleteTodoHandler}>
+          <Text isCompleted={props.completed}>{props.text}</Text>
+          <CloseButton type="button" onClick={deleteTodoHandler}>
             <img src={iconCross} />
-          </button>
+          </CloseButton>
         </TodoItem>
       )}
     </Draggable>

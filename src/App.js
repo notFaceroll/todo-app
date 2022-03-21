@@ -13,24 +13,29 @@ import styled from 'styled-components';
 import TodoProvider from './store/TodoProvider';
 
 const Main = styled.main`
-  width: clamp(300px, 50vw, 1000px);
+  width: clamp(300px, 50vw, 600px);
   margin-top: 50px;
 `;
 
-function App() {
-  
+const HintText = styled.p`
+  color: hsl(236, 9%, 61%);
+  text-align: center;
+  margin-top: 2rem;
+`;
 
+function App() {
   return (
     <TodoProvider>
-      
-        <Main>
-          <GlobalStyles />
-          <Header />
-          <CreateTodo />
-          <TodoList listId={Math.random().toString(36).substring(2, 9)} />
-          <TodoFilter />
-          <p>Drag and drop to reorder list</p>
-        </Main>
+      <Main>
+        <GlobalStyles />
+        <Header />
+        <CreateTodo />
+        <TodoList
+          listId={Math.random().toString(36).substring(2, 9)}
+        />
+        <TodoFilter />
+        <HintText>Drag and drop to reorder list</HintText>
+      </Main>
     </TodoProvider>
   );
 }
