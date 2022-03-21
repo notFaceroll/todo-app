@@ -6,6 +6,8 @@ import { Checkbox } from '@mui/material';
 import CircleOutlined from '@mui/icons-material/CircleOutlined';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
+import { Draggable } from 'react-beautiful-dnd';
+
 import iconOutline from '../assets/icon-cross.svg';
 import iconChecked from '../assets/icon-check.svg';
 
@@ -27,13 +29,21 @@ const TodoItem = styled.li`
   }
 
   button {
-    border: 0;
+    /* border: 0; */
     /* background-color: transparent; */
   }
 `;
 
 const Button = styled.button`
-  background-color: red;
+  background-color: transparent;
+  border: 1px solid grey;
+  color: blue;
+  border-radius: 50%;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-right: 1em;
+  display: flex;
+  align-items: center;
 `;
 
 export default function Todo(props) {
@@ -48,23 +58,27 @@ export default function Todo(props) {
   };
 
   return (
-    <TodoItem>
-      <Button onClick={toggleTodo}>
-        {props.completed ? (
-          <img src={iconChecked} alt=''/>
-        ) : (
-          <img src={iconOutline} alt=''/>
-        )}
-      </Button>
-      <Checkbox
-        icon={<CircleOutlined />}
-        checkedIcon={<CheckCircleIcon />}
-        onChange={toggleTodo}
-      />
-      <p>{props.text}</p>
-      <button type="button" onClick={deleteTodoHandler}>
-        <img src={iconCross} />
-      </button>
-    </TodoItem>
+    <Draggable draggableId={props.id} index={props.index} key={props.id}>
+      {(provided) => (
+        <TodoItem
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+        >
+          <Button onClick={toggleTodo}>
+            {props.completed ? (
+              <img src={iconChecked} alt="" />
+            ) : (
+              <img src={iconOutline} alt="" />
+            )}
+          </Button>
+
+          <p>{props.text}</p>
+          <button type="button" onClick={deleteTodoHandler}>
+            <img src={iconCross} />
+          </button>
+        </TodoItem>
+      )}
+    </Draggable>
   );
 }

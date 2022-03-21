@@ -6,6 +6,7 @@ const TodoContext = React.createContext({
   addTodo: (text) => {},
   deleteTodo: (id) => {},
   toggleTodo: (id) => {},
+  reorderList: (result) => {},
 });
 
 export default TodoContext;

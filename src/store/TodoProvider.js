@@ -31,6 +31,16 @@ const todoReducer = (state, action) => {
       });
       return updatedTodos;
     }
+
+    case 'REORDER': {
+      if (!action.payload.result.destination) return;
+
+      const list = state;
+      const [reorderedList] = list.splice(action.payload.result.source.index, 1);
+      list.splice(action.payload.result.destination.index, 0, reorderedList);
+      console.log(list);
+      return list;
+    }
   }
 };
 
@@ -49,11 +59,16 @@ const TodoProvider = (props) => {
     dispatch({ type: 'TOGGLE', payload: { id, completed } });
   };
 
+  const reorderList = (result) => {
+    dispatch({ type: 'REORDER', payload: { result } });
+  };
+
   const todoContext = {
     todosList: state,
     addTodo,
     deleteTodo,
     toggleTodo,
+    reorderList,
   };
 
   return (

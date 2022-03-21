@@ -18,16 +18,19 @@ const Main = styled.main`
 `;
 
 function App() {
+  
+
   return (
     <TodoProvider>
-      <Main>
-        <GlobalStyles />
-        <Header />
-        <CreateTodo />
-        <TodoList />
-        <TodoFilter />
-        <p>Drag and drop to reorder list</p>
-      </Main>
+      
+        <Main>
+          <GlobalStyles />
+          <Header />
+          <CreateTodo />
+          <TodoList listId={Math.random().toString(36).substring(2, 9)} />
+          <TodoFilter />
+          <p>Drag and drop to reorder list</p>
+        </Main>
     </TodoProvider>
   );
 }
