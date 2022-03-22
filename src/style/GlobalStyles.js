@@ -4,17 +4,16 @@ import desktopLightBg from '../assets/bg-desktop-light.jpg';
 
 const GlobalStyle = createGlobalStyle`
 body {
-    background-image: url(${mobileLightBg}); 
+    background-image: url(${(props) => props.theme.colors.backgroundImageMobile});
     background-repeat: no-repeat;
     background-position: top;
     display: flex;
     justify-content: center;
-    border: 2px solid red;
     height: 100vh;
-    background-color: hsl(0, 0%, 98%);
+    background-color: ${props => props.theme.colors.background};
 
     @media screen and (min-width: 380px) {
-        background-image: url(${desktopLightBg}); 
+        background-image: url(${(props) => props.theme.colors.backgroundImageDesktop}); 
         background-size: auto;
     }
 }`;

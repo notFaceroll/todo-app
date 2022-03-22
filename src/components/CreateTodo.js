@@ -11,6 +11,8 @@ const UserInput = styled.input`
   box-sizing: border-box;
   outline: 0;
   font-family: inherit;
+  background-color: ${(props) => props.theme.colors.listBackground};
+  color: ${(props) => props.theme.colors.overallText};
 `;
 
 const Form = styled.form`
@@ -47,7 +49,6 @@ function CreateTodo({}) {
         onChange={textInputHandler}
         value={text}
         maxLength="24"
-        
       />
       <HiddenInput type="submit" tabIndex="-1" />
     </Form>

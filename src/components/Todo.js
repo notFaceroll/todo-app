@@ -2,22 +2,24 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import TodoContext from '../store/todo-context';
 import iconCross from '../assets/icon-cross.svg';
-import { Checkbox } from '@mui/material';
-import CircleOutlined from '@mui/icons-material/CircleOutlined';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-
 import { Draggable } from 'react-beautiful-dnd';
+import { motion, AnimatePresence } from 'framer-motion';
 
-import iconOutline from '../assets/icon-cross.svg';
-import iconChecked from '../assets/icon-check.svg';
+const ItemBox = styled(motion.li)`
+  width: 100%;
+  :not(:last-of-type) {
+    border-bottom: 1px solid ${(props) => props.theme.colors.border};
+  }
+`;
 
-const TodoItem = styled.li`
+const TodoItem = styled.div`
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
   display: ${(props) => (props.isVisible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
+  
 
   img {
     max-width: 100%;
@@ -29,7 +31,9 @@ const Text = styled.p`
   margin: 0 auto 0 0;
   text-decoration: ${(props) => (props.isCompleted ? 'line-through' : 'none')};
   color: ${(props) =>
-    props.isCompleted ? 'hsl(233, 11%, 84%)' : 'hsl(235, 19%, 35%)'};
+    props.isCompleted
+      ? props.theme.colors.completedText
+      : props.theme.colors.overallText};
 `;
 
 const Button = styled.button`
@@ -62,30 +66,30 @@ export default function Todo(props) {
     todoCtx.toggleTodo(props.id, props.completed);
   };
 
-  console.log(props.isVisible);
-
   return (
     <Draggable draggableId={props.id} index={props.index} key={props.id}>
       {(provided) => (
-        <TodoItem
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          isVisible={props.isVisible}
-        >
-          <Button onClick={toggleTodo} completed={props.completed}>
-            {/* {props.completed ? (
-              <img src={iconChecked} alt="" />
-            ) : (
-              <img src={iconOutline} alt="" />
-            )} */}
-          </Button>
+        <AnimatePresence>
+          <ItemBox
+            animate={{ scale: 1 }}
+            initial={{ scale: 0.5 }}
+            exit={{ scale: 0.5 }}
+          >
+            <TodoItem
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+              isVisible={props.isVisible}
+            >
+              <Button onClick={toggleTodo} completed={props.completed}></Button>
 
-          <Text isCompleted={props.completed}>{props.text}</Text>
-          <CloseButton type="button" onClick={deleteTodoHandler}>
-            <img src={iconCross} />
-          </CloseButton>
-        </TodoItem>
+              <Text isCompleted={props.completed}>{props.text}</Text>
+              <CloseButton type="button" onClick={deleteTodoHandler}>
+                <img src={iconCross} />
+              </CloseButton>
+            </TodoItem>
+          </ItemBox>
+        </AnimatePresence>
       )}
     </Draggable>
   );

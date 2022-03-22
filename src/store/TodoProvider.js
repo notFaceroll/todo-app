@@ -22,7 +22,6 @@ const todoReducer = (state, action) => {
     }
 
     case 'TOGGLE': {
-      console.log('toggle');
       const updatedTodos = state.map((todo) => {
         if (todo.id === action.payload.id) {
           todo.completed = !action.payload.completed;
@@ -42,7 +41,6 @@ const todoReducer = (state, action) => {
         1
       );
       list.splice(action.payload.result.destination.index, 0, reorderedList);
-      console.log(list);
       return list;
     }
 

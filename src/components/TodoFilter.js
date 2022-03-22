@@ -10,6 +10,7 @@ const Nav = styled.nav`
   border-radius: 5px;
   display: flex;
   justify-content: center;
+  background-color: ${props => props.theme.colors.listBackground};
 `;
 
 const Container = styled.div`
@@ -46,7 +47,6 @@ function TodoFilter({}) {
     if (activeState !== null) {
       setActive(activeState);
     }
-    console.log(event.target.value);
     todoCtx.setVisibility(event.target.value);
   };
 

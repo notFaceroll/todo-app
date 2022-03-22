@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import moonIcon from '../assets/icon-moon.svg';
 
 const Container = styled.header`
   display: flex;
@@ -14,9 +13,12 @@ const Container = styled.header`
   }
 
   div {
-      width: 45px;
-      display: flex;
-      place-items: center;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+    background-image: url(${(props) => props.theme.colors.headerIcon});
+    background-repeat: no-repeat;
+    background-position: center;
   }
 
   img {
@@ -25,13 +27,11 @@ const Container = styled.header`
   }
 `;
 
-function Header({}) {
+function Header({ themeToggler }) {
   return (
     <Container>
       <h1>TODO</h1>
-      <div>
-        <img src={moonIcon} />
-      </div>
+      <div onClick={themeToggler}></div>
     </Container>
   );
 }

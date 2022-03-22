@@ -1,15 +1,13 @@
-import logo from './logo.svg';
 import './App.css';
 import * as React from 'react';
-import ReactDOM from 'react-dom';
-import Button from '@mui/material/Button';
-
+import { useState } from 'react';
 import CreateTodo from './components/CreateTodo';
 import TodoFilter from './components/TodoFilter';
 import TodoList from './components/TodoList';
 import Header from './components/Header';
 import GlobalStyles from './style/GlobalStyles';
-import styled from 'styled-components';
+import styled, { ThemeProvider } from 'styled-components';
+import { lightTheme, darkTheme } from './style/Theme';
 import TodoProvider from './store/TodoProvider';
 
 const Main = styled.main`
@@ -24,18 +22,28 @@ const HintText = styled.p`
 `;
 
 function App() {
+  const [currentTheme, setCurrentTheme] = useState(lightTheme);
+
+  const themeToggler = () => {
+    currentTheme === lightTheme
+      ? setCurrentTheme(darkTheme)
+      : setCurrentTheme(lightTheme);
+  };
+
+  const theme = { colors: currentTheme };
+
   return (
     <TodoProvider>
-      <Main>
-        <GlobalStyles />
-        <Header />
-        <CreateTodo />
-        <TodoList
-          listId={Math.random().toString(36).substring(2, 9)}
-        />
-        <TodoFilter />
-        <HintText>Drag and drop to reorder list</HintText>
-      </Main>
+      <ThemeProvider theme={theme}>
+        <Main>
+          <GlobalStyles />
+          <Header themeToggler={themeToggler} />
+          <CreateTodo />
+          <TodoList listId={Math.random().toString(36).substring(2, 9)} />
+          <TodoFilter />
+          <HintText>Drag and drop to reorder list</HintText>
+        </Main>
+      </ThemeProvider>
     </TodoProvider>
   );
 }

@@ -7,11 +7,8 @@ import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd';
 const List = styled.ul`
   list-style: none;
   padding: 0;
-  background-color: #fff;
+  background-color: ${props => props.theme.colors.listBackground};
   border-radius: 5px;
-  li + li {
-    border-top: 1px solid ${'hsl(233, 11%, 84%)'};
-  }
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 `;
 
@@ -23,6 +20,7 @@ const Container = styled.div`
   justify-content: space-between;
   align-items: center;
   color: hsl(236, 9%, 61%);
+  border-top: 1px solid ${(props) => props.theme.colors.border};
   button {
     font-family: inherit;
     font-size: inherit;
