@@ -2,10 +2,12 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import TodoContext from '../store/todo-context';
 import iconCross from '../assets/icon-cross.svg';
+import iconCheck from '../assets/icon-check.svg';
 import { Draggable } from 'react-beautiful-dnd';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const ItemBox = styled(motion.li)`
+  background-color: ${(props) => props.theme.colors.listBackground};
   width: 100%;
   :not(:last-of-type) {
     border-bottom: 1px solid ${(props) => props.theme.colors.border};
@@ -19,7 +21,6 @@ const TodoItem = styled.div`
   display: ${(props) => (props.isVisible ? 'flex' : 'none')};
   justify-content: center;
   align-items: center;
-  
 
   img {
     max-width: 100%;
@@ -37,9 +38,10 @@ const Text = styled.p`
 `;
 
 const Button = styled.button`
-  background-color: ${(props) => (props.completed ? 'blue' : 'transparent')};
-  border: 1px solid grey;
-  color: blue;
+  background-image: ${(props) =>
+    props.isCompleted ? 'linear-gradient(to right, #57ddff, #c058f3)' : 'none'};
+  background-color: transparent;
+  border: ${(props) => (props.isCompleted ? 'none' : '1px solid grey')};
   border-radius: 50%;
   width: 1.5rem;
   height: 1.5rem;
@@ -50,6 +52,7 @@ const Button = styled.button`
 `;
 
 const CloseButton = styled(Button)`
+  background-image: none;
   background-color: transparent;
   border: 0;
   margin: 0;
@@ -71,9 +74,9 @@ export default function Todo(props) {
       {(provided) => (
         <AnimatePresence>
           <ItemBox
-            animate={{ scale: 1 }}
-            initial={{ scale: 0.5 }}
-            exit={{ scale: 0.5 }}
+            animate={{ scale: 1, opacity: 1 }}
+            initial={{ scale: 0.5, opacity: 0 }}
+            exit={{ scale: 0.5, opacity: 0 }}
           >
             <TodoItem
               ref={provided.innerRef}
@@ -81,7 +84,9 @@ export default function Todo(props) {
               {...provided.dragHandleProps}
               isVisible={props.isVisible}
             >
-              <Button onClick={toggleTodo} completed={props.completed}></Button>
+              <Button onClick={toggleTodo} isCompleted={props.completed}>
+                {props.completed && <img src={iconCheck} alt="" />}
+              </Button>
 
               <Text isCompleted={props.completed}>{props.text}</Text>
               <CloseButton type="button" onClick={deleteTodoHandler}>

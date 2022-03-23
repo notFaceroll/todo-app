@@ -8,8 +8,9 @@ const List = styled.ul`
   list-style: none;
   padding: 0;
   background-color: ${props => props.theme.colors.listBackground};
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  overflow: hidden;
 `;
 
 const Container = styled.div`
@@ -43,6 +44,7 @@ function TodoList({ listId }) {
   const todoCtx = useContext(TodoContext);
 
   const handleReorder = (result) => {
+    if (!result.destination) return;
     todoCtx.reorderList(result);
   };
 

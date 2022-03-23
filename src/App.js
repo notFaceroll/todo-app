@@ -18,7 +18,7 @@ const Main = styled.main`
 const HintText = styled.p`
   color: hsl(236, 9%, 61%);
   text-align: center;
-  margin-top: 2rem;
+  margin-top: 3rem;
 `;
 
 function App() {

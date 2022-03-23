@@ -1,6 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-import mobileLightBg from '../assets/bg-mobile-light.jpg';
-import desktopLightBg from '../assets/bg-desktop-light.jpg';
 
 const GlobalStyle = createGlobalStyle`
 body {

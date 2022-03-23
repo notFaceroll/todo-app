@@ -16,6 +16,7 @@ export const lightTheme = {
   headerIcon: moonIcon,
   backgroundImageDesktop: bgLightDt,
   backgroundImageMobile: bgLightMb,
+  buttonBackground: 'linear-gradient(to right, #57DDFF, #C058F3)',
 };
 export const darkTheme = {
   background: '#161722',
@@ -29,6 +30,7 @@ export const darkTheme = {
   headerIcon: sunIcon,
   backgroundImageDesktop: bgDarkDt,
   backgroundImageMobile: bgDarkMb,
+  buttonBackground: 'linear-gradient(to right, #57DDFF, #C058F3)',
 };
 
 // https://convertacolor.com/
