@@ -12,7 +12,7 @@ export const lightTheme = {
   overallText: '#484B6A', // Input and todos text color
   completedText: '#777A92', // Decorated text marked as 'completed' (also)
   veryLightGrayishBlue: '#E4E5F1', // hover states
-  border: '#D2D3DB', // border
+  border: '#D2D3DB',
   headerIcon: moonIcon,
   backgroundImageDesktop: bgLightDt,
   backgroundImageMobile: bgLightMb,
@@ -24,9 +24,9 @@ export const darkTheme = {
   overallText: '#CACDE8', // Input and todos text color
   completedText: '#777A92', // decorated text marked as 'completed'
   lightGrayishBlueHover: '#E4E5F1', // hovered buttons
-  veryDarkGrayishBlue: '#4D5066', // buttons text also?
-  veryDarkGrayishBlue: '#393A4C', // 'clear completed'
-  border: '#777A92', // border
+  darkGrayishBlue: '#4D5066', // buttons text also?
+  veryDarkGrayishBlue: '#393A4C',
+  border: '#777A92',
   headerIcon: sunIcon,
   backgroundImageDesktop: bgDarkDt,
   backgroundImageMobile: bgDarkMb,

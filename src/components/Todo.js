@@ -18,9 +18,10 @@ const TodoItem = styled.div`
   width: 100%;
   padding: 1rem;
   box-sizing: border-box;
-  display: ${(props) => (props.isVisible ? 'flex' : 'none')};
+  display: flex;
   justify-content: center;
   align-items: center;
+  display: ${(props) => (props.isVisible ? 'flex' : 'none')};
 
   img {
     max-width: 100%;
@@ -41,21 +42,30 @@ const Button = styled.button`
   background-image: ${(props) =>
     props.isCompleted ? 'linear-gradient(to right, #57ddff, #c058f3)' : 'none'};
   background-color: transparent;
-  border: ${(props) => (props.isCompleted ? 'none' : '1px solid grey')};
+  border: ${(props) => (props.isCompleted ? 'none' : '1px solid #D2D3DB')};
   border-radius: 50%;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 1.4rem;
+  height: 1.4rem;
   margin-right: 1em;
   display: flex;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
+  box-sizing: border-box;
+
+  &:hover {
+    border: ${(props) => (props.isCompleted ? 'none' : '2px solid #c058f3')};
+  }
 `;
 
-const CloseButton = styled(Button)`
+const CloseButton = styled.button`
   background-image: none;
   background-color: transparent;
   border: 0;
   margin: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  cursor: pointer;
 `;
 
 export default function Todo(props) {
@@ -75,8 +85,8 @@ export default function Todo(props) {
         <AnimatePresence>
           <ItemBox
             animate={{ scale: 1, opacity: 1 }}
-            initial={{ scale: 0.5, opacity: 0 }}
-            exit={{ scale: 0.5, opacity: 0 }}
+            initial={{ scale: 1, opacity: 0 }}
+            exit={{ scale: 1, opacity: 0 }}
           >
             <TodoItem
               ref={provided.innerRef}
@@ -84,13 +94,17 @@ export default function Todo(props) {
               {...provided.dragHandleProps}
               isVisible={props.isVisible}
             >
-              <Button onClick={toggleTodo} isCompleted={props.completed}>
+              <Button
+                onClick={toggleTodo}
+                isCompleted={props.completed}
+                aria-label="Completed"
+              >
                 {props.completed && <img src={iconCheck} alt="" />}
               </Button>
 
               <Text isCompleted={props.completed}>{props.text}</Text>
               <CloseButton type="button" onClick={deleteTodoHandler}>
-                <img src={iconCross} />
+                <img src={iconCross} alt="" />
               </CloseButton>
             </TodoItem>
           </ItemBox>

@@ -10,7 +10,7 @@ const Nav = styled.nav`
   border-radius: 5px;
   display: flex;
   justify-content: center;
-  background-color: ${props => props.theme.colors.listBackground};
+  background-color: ${(props) => props.theme.colors.listBackground};
 `;
 
 const Container = styled.div`
@@ -39,7 +39,7 @@ const Container = styled.div`
   }
 `;
 
-function TodoFilter({}) {
+function TodoFilter() {
   const todoCtx = useContext(TodoContext);
   const [active, setActive] = useState('all');
 
@@ -51,14 +51,14 @@ function TodoFilter({}) {
   };
 
   let totalVisibleItems = todoCtx.todosList.filter(
-    (todo) => todo.isVisible === true
+    (todo) => todo.completed === false
   );
 
   return (
     <Nav>
       <Container>
         <span>
-          {totalVisibleItems.length} Item{`(s)`}{' '}
+          {totalVisibleItems.length} Item{`(s)`} left
         </span>
       </Container>
       <ToggleButtonGroup
@@ -74,21 +74,35 @@ function TodoFilter({}) {
             textTransform: 'capitalize',
             fontFamily: 'inherit',
           },
+          '& button:hover': {
+            backgroundColor: 'transparent',
+            color: 'hsl(235, 19%, 35%)',
+          },
           '& button.Mui-selected': {
             color: 'hsl(220, 98%, 61%)',
             backgroundColor: 'transparent',
           },
+          '& button.Mui-selected:hover': {
+            backgroundColor: 'transparent',
+          },
         }}
       >
-        <ToggleButton value="all">All</ToggleButton>
-        <ToggleButton value="active">Active</ToggleButton>
-        <ToggleButton value="completed">Completed</ToggleButton>
+        <ToggleButton value="all" aria-label="All">
+          All
+        </ToggleButton>
+        <ToggleButton value="active" aria-label="Active">
+          Active
+        </ToggleButton>
+        <ToggleButton value="completed" aria-label="Completed">
+          Completed
+        </ToggleButton>
       </ToggleButtonGroup>
       <Container>
         <button
           onClick={() => {
             todoCtx.clearList();
           }}
+          aria-label="Clear completed"
         >
           Clear completed
         </button>

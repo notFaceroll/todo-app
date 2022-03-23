@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import TodoContext from '../store/todo-context';
 import Todo from './Todo';
-import { Droppable, DragDropContext, Draggable } from 'react-beautiful-dnd';
+import { Droppable, DragDropContext } from 'react-beautiful-dnd';
 
 const List = styled.ul`
+  background-color: ${(props) => props.theme.colors.listBackground};
   list-style: none;
   padding: 0;
-  background-color: ${props => props.theme.colors.listBackground};
   border-radius: 8px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
   overflow: hidden;
@@ -49,7 +49,7 @@ function TodoList({ listId }) {
   };
 
   let totalVisibleItems = todoCtx.todosList.filter(
-    (todo) => todo.isVisible === true
+    (todo) => todo.completed === false
   );
 
   return (
@@ -68,18 +68,21 @@ function TodoList({ listId }) {
                   isVisible={todo.isVisible}
                 />
               ))}
-            {todoCtx.todosList.length > 0 && <Container>
-              <span>
-                {totalVisibleItems.length} Item{`(s)`}{' '}
-              </span>
-              <button
-                onClick={() => {
-                  todoCtx.clearList();
-                }}
-              >
-                Clear completed
-              </button>
-            </Container>}
+            {todoCtx.todosList.length > 0 && (
+              <Container>
+                <span>
+                  {totalVisibleItems.length} Item{`(s)`} left
+                </span>
+                <button
+                  onClick={() => {
+                    todoCtx.clearList();
+                  }}
+                  aria-label="Clear completed"
+                >
+                  Clear completed
+                </button>
+              </Container>
+            )}
             {provided.placeholder}
           </List>
         )}
