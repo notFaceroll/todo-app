@@ -9,6 +9,7 @@ import GlobalStyles from './style/GlobalStyles';
 import styled, { ThemeProvider } from 'styled-components';
 import { lightTheme, darkTheme } from './style/Theme';
 import TodoProvider from './store/TodoProvider';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 const Main = styled.main`
   width: clamp(300px, 50vw, 600px);
@@ -22,15 +23,16 @@ const HintText = styled.p`
 `;
 
 function App() {
-  const [currentTheme, setCurrentTheme] = useState(lightTheme);
+  // const [currentTheme, setCurrentTheme] = useState(lightTheme);
+  const [localTheme, setLocalTheme] = useLocalStorage('theme', lightTheme);
 
   const themeToggler = () => {
-    currentTheme === lightTheme
-      ? setCurrentTheme(darkTheme)
-      : setCurrentTheme(lightTheme);
+    localTheme === lightTheme
+      ? setLocalTheme(darkTheme)
+      : setLocalTheme(lightTheme);
   };
 
-  const theme = { colors: currentTheme };
+  const theme = { colors: localTheme };
 
   return (
     <TodoProvider>

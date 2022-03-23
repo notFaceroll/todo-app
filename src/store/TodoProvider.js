@@ -1,4 +1,5 @@
-import React, { useReducer } from 'react';
+import React, { useEffect, useReducer } from 'react';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 import TodoContext from './todo-context';
 
 const defaultTodoState = [];
@@ -82,7 +83,14 @@ const todoReducer = (state, action) => {
 };
 
 const TodoProvider = (props) => {
-  const [state, dispatch] = useReducer(todoReducer, defaultTodoState);
+  const [todos, setTodos] = useLocalStorage('TODOs', []);
+
+  // const [state, dispatch] = useReducer(todoReducer, defaultTodoState);
+  const [state, dispatch] = useReducer(todoReducer, todos);
+
+  useEffect(() => {
+    setTodos(state);
+  }, [state, setTodos]);
 
   const addTodo = (text) => {
     dispatch({ type: 'ADD', payload: { text } });
