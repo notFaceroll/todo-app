@@ -57,6 +57,7 @@ Users should be able to:
 - [Styled Components](https://styled-components.com/) - For styles
 - [Framer](https://www.framer.com/) - For animations
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) - For the dragging feature on the list
+- [MUI](https://mui.com/) - For some of the components
 
 
 ### What I learned
