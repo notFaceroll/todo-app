@@ -23,9 +23,9 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 
 
 ### Screenshot
-
-![](./src/design/desktop-lightThemed-screenshot.png)
-![](./src/design/mobile-darkThemed-screenshot.png)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/64233549/160167075-80b9e8a0-aefa-4f07-b7a8-df08bc47f5f1.gif)
+<!-- ![](./src/design/desktop-lightThemed-screenshot.png)
+![](./src/design/mobile-darkThemed-screenshot.png) -->
 
 
 ## Built with
